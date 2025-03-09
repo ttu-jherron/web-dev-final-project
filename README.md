@@ -1,5 +1,5 @@
 # Web-Dev-Final-Project
-This is a project that Emmerson Smith and I came up with in Web Development. This is a full stack website that will be used to allow students to post reviews about their teammates to their professor and their revised comments will then go to their teammates.
+This is a project that Emerson Smith and I came up with in Web Development. This is a full stack website that will be used to allow students to post reviews about their teammates to their professor and their revised comments will then go to their teammates.
 
 # Branch Structure
 We will follow a structured Git workflow to ensure smooth collaboration and a clean, organized repository. Our main branches:
