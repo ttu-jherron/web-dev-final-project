@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Student Reviews - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/journal/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body class="bg-dark">
     <div class="d-flex min-vh-100 justify-content-center align-items-center">
@@ -13,6 +15,11 @@
                 <h1 class="text-center mb-4">Login</h1>
                 <input id="txtLoginUsername" class="form-control" type="email" placeholder="Email" aria-label="email">
                 <input id="txtLoginPassword" class="form-control mt-2" type="password" placeholder="Password" aria-label="password">
+                <select id="selRole" class="form-control mt-4" aria-label="Are you a student or instructor?">
+                    <option value="" disabled selected hidden >Are you a student or instructor?</option> <!--disabled selected hidden will prevent this option from being a selectable -->
+                    <option value="Student">Student</option>
+                    <option value="Instructor">Instructor</option>
+                </select>
                 <button class="btn btn-primary col-12 mt-3" type="button" id="btnLogin">Log In</button>
                 <button class="btn btn-link col-12 mt-1" type="button" id="btnSwapRegister">Need an account?</button>
             </div>
@@ -24,13 +31,17 @@
                 <input id="txtLastName" class="form-control mt-2" type="text" placeholder="Last Name" aria-label="last name">
                 <input id="txtUsername" class="form-control mt-4" type="email" placeholder="Email" aria-label="email">
                 <input id="txtPassword" class="form-control mt-2" type="password" placeholder="Password" aria-label="password">
+                <select id="selRole" class="form-control mt-4" aria-label="Are you a student or instructor?">
+                    <option value="" disabled selected hidden >Are you a student or instructor?</option> <!--disabled selected hidden will prevent this option from being a selectable -->
+                    <option value="Student">Student</option>
+                    <option value="Instructor">Instructor</option>
+                </select>
                 <button class="btn btn-primary col-12 mt-3" type="button" id="btnRegister">Register</button>
                 <button class="btn btn-link col-12 mt2" type="button" id="btnSwapLogin">Back to Login</button>
             </div>
         </form>
         <div class="card col-12 col-md-6 col-lg-4" id="divDashboard" style="display:none;">
             <div class="card-body">
-                    
                 </p>
             </div>
         </div>
