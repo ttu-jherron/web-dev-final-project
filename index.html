@@ -15,7 +15,7 @@
                 <h1 class="text-center mb-4">Login</h1>
                 <input id="txtLoginUsername" class="form-control" type="email" placeholder="Email" aria-label="email">
                 <input id="txtLoginPassword" class="form-control mt-2" type="password" placeholder="Password" aria-label="password">
-                <select id="selRole" class="form-control mt-4" aria-label="Are you a student or instructor?">
+                <select id="selRoleLogin" class="form-control mt-4" aria-label="Are you a student or instructor?">
                     <option value="" disabled selected hidden >Are you a student or instructor?</option> <!--disabled selected hidden will prevent this option from being a selectable -->
                     <option value="Student">Student</option>
                     <option value="Instructor">Instructor</option>
@@ -31,7 +31,7 @@
                 <input id="txtLastName" class="form-control mt-2" type="text" placeholder="Last Name" aria-label="last name">
                 <input id="txtUsername" class="form-control mt-4" type="email" placeholder="Email" aria-label="email">
                 <input id="txtPassword" class="form-control mt-2" type="password" placeholder="Password" aria-label="password">
-                <select id="selRole" class="form-control mt-4" aria-label="Are you a student or instructor?">
+                <select id="selRoleRegister" class="form-control mt-4" aria-label="Are you a student or instructor?">
                     <option value="" disabled selected hidden >Are you a student or instructor?</option> <!--disabled selected hidden will prevent this option from being a selectable -->
                     <option value="Student">Student</option>
                     <option value="Instructor">Instructor</option>
@@ -40,9 +40,53 @@
                 <button class="btn btn-link col-12 mt2" type="button" id="btnSwapLogin">Back to Login</button>
             </div>
         </form>
-        <div class="card col-12 col-md-6 col-lg-4" id="divDashboard" style="display:none;">
+
+
+        <div class="card col-12 col-md-6 col-lg-4" id="divStudentDashboard" style="display:none;">
             <div class="card-body">
-                </p>
+                <h1 class="card-title text-center mb-4">Student Dashboard</h1>
+                <div id="joinGroupSection">
+                    <h5>Join a Group</h5>
+                    <input id="txtGroupKey" type="text" class="form-control mb-2" placeholder="Enter group key" />
+                    <button class="btn btn-success col-12" type="button" id="btnJoinGroup">Join Group</button>
+                    <div id="joinGroupMsg" class="mt-2"></div>
+                </div>
+                <!-- Leave Group Section -->
+                <div id="leaveGroupSection" class="mt-3" style="display: none;">
+                    <button class="btn btn-danger col-12" type="button" id="btnLeaveGroup">Leave Group</button>
+                    <div id="leaveGroupMsg" class="mt-2"></div>
+                </div>
+
+                <!-- Group Member Info (Simulated for Now) -->
+                <div id="groupMembersSection" class="mt-3" style="display: none;">
+                    <h5>Group Members</h5>
+                    <ul class="list-group" id="groupMemberList">
+                        <!-- List items will be inserted here dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructor Dashboard -->
+        <div class="card col-12 col-md-6 col-lg-4" id="divInstructorDashboard" style="display: none;">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4">Instructor Dashboard</h1>
+        
+                <!-- Create Group Section -->
+                <div id="createGroupSection">
+                    <h5>Create a Group</h5>
+                    <input id="txtClassName" type="text" class="form-control mb-2" placeholder="Enter class name" />
+                    <button class="btn btn-primary col-12" type="button" id="btnCreateGroup">Create Group</button>
+                    <div id="createGroupMsg" class="mt-2"></div>
+                    <!--
+                        Chatgpt recommended this new html tag which is <ul> (unordered list) element it is used to display a list of groups created by the instructor.
+                        It works together with <li> (list item) elements, which are added dynamically using JavaScript.
+                        When a new group is created via the "Create Group" form, JavaScript generates a new <li> element
+                        that contains the group name and its unique key. That <li> is then inserted into this <ul>,
+                        creating a visually styled list using Bootstrap's "list-group" class. We also use ul in the group member section of our html.
+                    -->
+                    <ul class="list-group mt-3" id="groupList"></ul>
+                </div>
             </div>
         </div>
     </div>
