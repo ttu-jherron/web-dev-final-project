@@ -42,7 +42,7 @@
         </form>
 
 
-        <div class="card col-12 col-md-6 col-lg-4" id="divStudentDashboard" style="display:none;">
+        <div class="card col-12 col-md-6 col-lg-4 mt-5 mb-5" id="divStudentDashboard" style="display:none;">
             <div class="card-body">
                 <h1 class="card-title text-center mb-4">Student Dashboard</h1>
                 <div id="joinGroupSection">
@@ -52,8 +52,12 @@
                     <div id="joinGroupMsg" class="mt-2"></div>
                 </div>
                 <!-- Leave Group Section -->
-                <div id="leaveGroupSection" class="mt-3" style="display: none;">
-                    <button class="btn btn-danger col-12" type="button" id="btnLeaveGroup">Leave Group</button>
+                <div id="divAddFeedback" class="mb-2" style="display: none;">
+                    <button class="btn btn-danger col-12" type="button" id="btnAddFeedback" aria-label="AddFeedback">Submit Feedback on Group Member</button>
+                </div>
+                <!-- Leave Group Section -->
+                <div id="leaveGroupSection" style="display: none;">
+                    <button class="btn btn-danger col-12" type="button" id="btnLeaveGroup" style="background-color:red;">Leave Group</button>
                     <div id="leaveGroupMsg" class="mt-2"></div>
                 </div>
 
@@ -66,6 +70,18 @@
                 </div>
             </div>
         </div>
+        <!-- Feedback Submission Sections -->
+        <div class="card col-12 col-md-6 col-lg-4 mt-5 mb-5" id="divFeedbackForm" style="display:none;">
+            <div class="card-body">
+                <h1>Student Feeback Form</h1>
+                <select class="list-group form-control mt-5" id="selGroupMember" aria-label="Select a group member to give feedback on">
+                    <!-- Group members will be added as an option dynamically -->
+                </select>
+                <textarea class="form-control mt-3" id="txtFeedback" rows="4" placeholder="Enter your feedback here..."></textarea>
+                <button class="btn btn-primary col-12 mt-3" type="button" id="btnSubmitFeedback" aria-label="Submit Feedback">Submit Feedback</button>
+                <button class="btn btn-link col-12 mt-2" type="button" id="btnBackToDashboard" aria-label="Go Back to Dashboard">Back to Dashboard</button>
+            </div>
+        </div>
 
         <!-- Instructor Dashboard -->
         <div class="card col-12 col-md-6 col-lg-4" id="divInstructorDashboard" style="display: none;">
@@ -75,7 +91,12 @@
                 <!-- Create Group Section -->
                 <div id="createGroupSection">
                     <h5>Create a Group</h5>
-                    <input id="txtClassName" type="text" class="form-control mb-2" placeholder="Enter class name" />
+                    <input id="txtClassName" type="text" class="form-control mb-1" placeholder="Enter class name" />
+                    <select class="list-group form-control mb-2" id="selPublicFeedback" aria-label="select student feedback to be public or private">
+                        <option value="" disabled selected hidden >Select student feedback to be public or private</option> 
+                        <option value="Public">Public</option>
+                        <option value="Private">Private</option>
+                    </select>
                     <button class="btn btn-primary col-12" type="button" id="btnCreateGroup">Create Group</button>
                     <div id="createGroupMsg" class="mt-2"></div>
                     <!--
