@@ -51,9 +51,12 @@
                     <button class="btn btn-success col-12" type="button" id="btnJoinGroup">Join Group</button>
                     <div id="joinGroupMsg" class="mt-2"></div>
                 </div>
-                <!-- Leave Group Section -->
+                <!-- Add Feedback Section -->
                 <div id="divAddFeedback" class="mb-2" style="display: none;">
                     <button class="btn btn-danger col-12" type="button" id="btnAddFeedback" aria-label="AddFeedback">Submit Feedback on Group Member</button>
+                </div>
+                <div id="divTakeSurvey" class="mb-2" style="display: none;">
+                    <button class="btn btn-danger col-12" type="button" id="btnTakeSurvey" aria-label="Take Survey">Take Course Survey</button>
                 </div>
                 <!-- Leave Group Section -->
                 <div id="leaveGroupSection" style="display: none;">
@@ -70,6 +73,10 @@
                 </div>
             </div>
         </div>
+        <div class="card col-12 col-md-6 col-lg-4 mt-5 mb-5" id="divStudentSurvey" style="display:none;">
+        <!-- Survey will be dynamically added here from survey.html -->
+        </div>
+
         <!-- Feedback Submission Sections -->
         <div class="card col-12 col-md-6 col-lg-4 mt-5 mb-5" id="divFeedbackForm" style="display:none;">
             <div class="card-body">

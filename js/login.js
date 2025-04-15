@@ -23,7 +23,7 @@ let currentGroupKey = null;
 
 function updateGroupUI() {
     const leaveSection = document.querySelector('#leaveGroupSection');
-    const submitFeedback = document.querySelector('#divAddFeedback');
+    const submitFeedback = document.querySelector('#divAddFeedback')
     const joinSection = document.querySelector('#joinGroupSection');
     const joinMsg = document.querySelector('#joinGroupMsg');
 
@@ -252,6 +252,16 @@ document.querySelector('#btnJoinGroup')?.addEventListener('click', () => {
         currentGroupKey = groupKey.toUpperCase();
         updateGroupUI();
         displayGroupMembers(); // Show group members after joining
+
+        /******************************************************************************
+        Adding survey button here and will be toggled on when the instructor of the
+        class decides to send out the survey. Delete this comment when the code is
+        implemented.
+        *******************************************************************************/
+
+        if (true) {
+            document.querySelector('#divTakeSurvey').style.display = 'block'
+        }
     } else {
         document.querySelector('#joinGroupMsg').innerHTML = `<p class="text-danger">Invalid group key. Please try again.</p>`;
     }
@@ -383,3 +393,37 @@ document.querySelector('#btnBackToDashboard')?.addEventListener('click', () => {
     document.querySelector('#divStudentDashboard').style.display = 'block'
     document.querySelector('#divFeedbackForm').style.display = 'none'
 })
+
+document.querySelector('#btnTakeSurvey')?.addEventListener('click', () => {
+    getSurveyQuestions()
+})
+
+document.addEventListener('click', (event) => {
+    if (event.target && event.target.id === 'btnBackToDashboardSurvey') {
+        document.querySelector('#divStudentSurvey').querySelectorAll('input, textarea, select').forEach(element => {
+            if (element.type === 'checkbox' || element.type === 'radio') {
+                element.checked = false;
+            } else {
+                element.value = '';
+            }
+        });
+        document.querySelector('#divStudentSurvey').style.display = 'none';
+        document.querySelector('#divStudentDashboard').style.display = 'block';
+    }
+});
+
+function getSurveyQuestions() {
+    fetch('./survey.html')
+    .then(response => response.text())
+    .then(data => {
+        document.querySelector('#divStudentSurvey').innerHTML = data
+        let strHTML = '<option disabled selected hidden >Select a group member</option>'
+        mockGroupMembers.forEach(member => {
+            strHTML += `<option value="${member.name}" aria-label="${member.name}">${member.name}</option>`
+        })
+        document.querySelector('#selGroupMemberSurvey').innerHTML = strHTML
+        document.querySelector('#divStudentSurvey').style.display = 'block'
+        document.querySelector('#divStudentDashboard').style.display = 'none'
+    })
+    .catch(error => console.error('Error loading survey questions:', error))
+}
