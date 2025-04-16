@@ -66,17 +66,30 @@ const mockGroupMembers = [
  * This simulates pulling group member info from the backend later.
  */
 function displayGroupMembers() {
+    // Get references to the DOM elements we need to manipulate
+    // The section is the container that holds the entire members list area
     const section = document.querySelector('#groupMembersSection');
+    // The list element where we'll add each group member as a list item
     const list = document.querySelector('#groupMemberList');
 
-    // Clear out any existing content
+    // Clear out any existing content from previous renders
+    // This prevents duplicate entries if the function runs multiple times
     list.innerHTML = '';
 
-    // Loop through mock members and create list items
+    // Loop through the array of mock members using forEach
+    // forEach is an array method that executes a provided function once for each array element
     mockGroupMembers.forEach(member => {
+        // For each member object, create a new list item element
+        // createElement is a DOM method that creates an HTML element
         const li = document.createElement('li');
+        
+        // Add Bootstrap's "list-group-item" class for styling
+        // This applies Bootstrap's list styling with borders and padding
         li.className = 'list-group-item';
 
+        // Set the inner HTML of the list item using a template literal
+        // Template literals (backticks) allow embedding expressions and multi-line strings
+        // ${...} syntax enables embedding variables directly into the string
         li.innerHTML = `
             <strong>Name:</strong> ${member.name}<br>
             <strong>Email:</strong> ${member.email}<br>
@@ -84,10 +97,13 @@ function displayGroupMembers() {
             <strong>Phone:</strong> ${member.phone}
         `;
 
+        // Append the newly created list item to the parent list
+        // This adds the element to the DOM, making it visible in the browser
         list.appendChild(li);
     });
 
-    // Show the group members section
+    // Make the entire members section visible by changing its display property
+    // Before this, the section might be hidden (display: none)
     section.style.display = 'block';
 }
 
@@ -257,6 +273,7 @@ document.querySelector('#btnJoinGroup')?.addEventListener('click', () => {
 
 // Handle "Leave Group" button 
 // #FIXME: **Note to self add comments to this section of code as it shows things not covered in class**
+
 document.querySelector('#btnLeaveGroup')?.addEventListener('click', () => {
     Swal.fire({
         title: 'Are you sure?',
@@ -265,9 +282,15 @@ document.querySelector('#btnLeaveGroup')?.addEventListener('click', () => {
         showCancelButton: true,
         confirmButtonText: 'Yes, leave group',
         cancelButtonText: 'Cancel'
-    }).then((result) => {
+    }) // The .then() method executes only after the user has made a choice
+    .then((result) => {
+        // Check if the user clicked the confirm button
         if (result.isConfirmed) {
+            // Reset the group state - user is no longer in any group
             currentGroupKey = null;
+            
+            // Call the helper function to update all UI elements based on group state
+            // This will hide "Leave Group" button and show "Join Group" input
             updateGroupUI();
 
             /// Clear join group message
