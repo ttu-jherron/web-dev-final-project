@@ -23,12 +23,14 @@ let currentGroupKey = null;
 
 function updateGroupUI() {
     const leaveSection = document.querySelector('#leaveGroupSection');
+    const submitFeedback = document.querySelector('#divAddFeedback')
     const joinSection = document.querySelector('#joinGroupSection');
     const joinMsg = document.querySelector('#joinGroupMsg');
 
     if (currentGroupKey) {
         // Student is in a group: show leave option and group message
         leaveSection.style.display = 'block';
+        submitFeedback.style.display = 'block';
         joinSection.style.display = 'none';
         joinMsg.innerHTML = `<p class="text-info">You are currently in group <code>${currentGroupKey}</code>.</p>`;
     } else {
@@ -144,7 +146,7 @@ document.querySelector('#btnLogin').addEventListener('click', (event) => {
         blnError = true
         strMessage += "<p class='mt-0 mb-0'>You must enter a valid email</p>"
     }
-    if (strPassword.length < 6) {
+    if (strPassword.length < 1) {
         blnError = true
         strMessage += "<p class='mt-0 mb-0'>You must enter a password</p>"
     }
@@ -266,6 +268,16 @@ document.querySelector('#btnJoinGroup')?.addEventListener('click', () => {
         currentGroupKey = groupKey.toUpperCase();
         updateGroupUI();
         displayGroupMembers(); // Show group members after joining
+
+        /******************************************************************************
+        Adding survey button here and will be toggled on when the instructor of the
+        class decides to send out the survey. Delete this comment when the code is
+        implemented.
+        *******************************************************************************/
+
+        if (true) {
+            document.querySelector('#divTakeSurvey').style.display = 'block'
+        }
     } else {
         document.querySelector('#joinGroupMsg').innerHTML = `<p class="text-danger">Invalid group key. Please try again.</p>`;
     }
@@ -346,3 +358,95 @@ document.querySelector('#btnCreateGroup')?.addEventListener('click', () => {
     document.querySelector('#txtClassName').value = ''
 })
 
+document.querySelector('#btnAddFeedback')?.addEventListener('click', () => {
+    document.querySelector('#divStudentDashboard').style.display = 'none'
+    document.querySelector('#divFeedbackForm').style.display = 'block'
+
+    // Clear the previous options in the dropdown
+    document.querySelector('#txtFeedback').value = ''
+    let strHTML = '<option disabled selected hidden >Select a group member</option>'
+
+    mockGroupMembers.forEach(member => {
+        strHTML += `<option value="${member.name}" aria-label="${member.name}">${member.name}</option>`
+    })
+    document.querySelector('#selGroupMember').innerHTML = strHTML
+})
+
+document.querySelector('#btnSubmitFeedback')?.addEventListener('click', () => {
+    strHTML = ''
+    blnError = false
+    if (document.querySelector('#selGroupMember').value == 'Select a group member') {
+        blnError = true
+        strHTML += "<p class='mt-0 mb-0'>You must select a group member</p>"
+    }
+    if (document.querySelector('#txtFeedback').value.trim().length < 1) {
+        blnError = true
+        strHTML += "<p class='mt-0 mb-0'>You must enter feedback</p>"
+    }
+    if (document.querySelector('#txtFeedback').value.trim().length > 500) {
+        blnError = true
+        strHTML += "<p class='mt-0 mb-0'>Feedback must be 500 characters or less</p>"
+    }
+    if (blnError == false) {
+        const strRecipient = document.querySelector('#selGroupMember').value
+        const strFeedback = document.querySelector('#txtFeedback').value.trim()
+
+        /*
+         * Will be unctionality to send feedback to the backend to be stored in the database
+         * This is a placeholder for the actual implementation.
+         */
+        Swal.fire({
+            title: 'Feedback submitted successfully!',
+            icon: 'success'
+        })
+        // Return user to dashboard after feedback submission
+        document.querySelector('#divStudentDashboard').style.display = 'block'
+        document.querySelector('#divFeedbackForm').style.display = 'none'
+        
+    } else if (blnError == true) {
+        Swal.fire({
+            title: 'There are still some errors in the information',
+            html: strHTML,
+            icon: 'error'
+        })
+    }
+})
+
+document.querySelector('#btnBackToDashboard')?.addEventListener('click', () => {
+    document.querySelector('#divStudentDashboard').style.display = 'block'
+    document.querySelector('#divFeedbackForm').style.display = 'none'
+})
+
+document.querySelector('#btnTakeSurvey')?.addEventListener('click', () => {
+    getSurveyQuestions()
+})
+
+document.addEventListener('click', (event) => {
+    if (event.target && event.target.id === 'btnBackToDashboardSurvey') {
+        document.querySelector('#divStudentSurvey').querySelectorAll('input, textarea, select').forEach(element => {
+            if (element.type === 'checkbox' || element.type === 'radio') {
+                element.checked = false;
+            } else {
+                element.value = '';
+            }
+        });
+        document.querySelector('#divStudentSurvey').style.display = 'none';
+        document.querySelector('#divStudentDashboard').style.display = 'block';
+    }
+});
+
+function getSurveyQuestions() {
+    fetch('./survey.html')
+    .then(response => response.text())
+    .then(data => {
+        document.querySelector('#divStudentSurvey').innerHTML = data
+        let strHTML = '<option disabled selected hidden >Select a group member</option>'
+        mockGroupMembers.forEach(member => {
+            strHTML += `<option value="${member.name}" aria-label="${member.name}">${member.name}</option>`
+        })
+        document.querySelector('#selGroupMemberSurvey').innerHTML = strHTML
+        document.querySelector('#divStudentSurvey').style.display = 'block'
+        document.querySelector('#divStudentDashboard').style.display = 'none'
+    })
+    .catch(error => console.error('Error loading survey questions:', error))
+}
